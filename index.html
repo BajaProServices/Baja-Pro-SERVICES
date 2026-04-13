@@ -1,4 +1,4 @@
-<Index.html>
+<index.html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -27,23 +27,31 @@
             border-bottom: 5px solid var(--aqua-base);
         }
 
+        .coverage-banner {
+            background: var(--aqua-dark);
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .lang-switch { position: absolute; top: 20px; right: 20px; z-index: 100; background: rgba(255,255,255,0.9); padding: 5px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .lang-switch button { padding: 8px 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: 800; transition: var(--transition); font-size: 12px; }
         .lang-switch button.active { background: var(--aqua-base); color: white; }
 
         .container { width: 92%; max-width: 600px; background: var(--white); padding: 30px; border-radius: 25px; box-shadow: 0 15px 35px rgba(20, 184, 166, 0.2); margin: -50px auto 40px; position: relative; z-index: 10; }
-        .brand-header { text-align: center; margin-bottom: 20px; }
+        .brand-header { text-align: center; margin-bottom: 25px; }
         .brand-header h1 { color: var(--aqua-dark); letter-spacing: 1px; font-size: 24px; }
         
-        .contact-info { background: #f8fafc; padding: 15px; border-radius: 15px; font-size: 12px; margin-bottom: 20px; line-height: 1.6; border: 1px solid #e2e8f0; }
-        .contact-info b { color: var(--aqua-dark); }
-
         .section-title { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--aqua-base); margin: 25px 0 15px; display: flex; align-items: center; gap: 10px; }
         .section-title::after { content: ""; height: 1px; background: #ccfbf1; flex: 1; }
 
         .form-group { margin-bottom: 15px; }
         label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; color: #334155; }
-        input, select, textarea { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px; transition: var(--transition); }
+        input { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px; transition: var(--transition); }
         input:focus { border-color: var(--aqua-base); outline: none; box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1); }
 
         .services-box { max-height: 400px; overflow-y: auto; border: 2px solid var(--aqua-light); border-radius: 15px; padding: 5px; background: #fafafa; }
@@ -76,15 +84,13 @@
     </div>
 </div>
 
+<div class="coverage-banner">
+    LA PAZ · CABO SAN LUCAS · SAN JOSÉ DEL CABO · CENTENARIO · COMITÁN · EL SARGENTO · LOS BARRILES
+</div>
+
 <div class="container">
     <div class="brand-header">
         <h1>BAJA PRO SERVICES</h1>
-    </div>
-
-    <div class="contact-info">
-        <p><b>Ventas:</b> 612 219 8325 | <b>Soporte:</b> 612 167 3200</p>
-        <p><b>Email:</b> servicesbajapro@gmail.com</p>
-        <p><b>Cobertura:</b> La Paz, Cabo San Lucas, San José del Cabo, Centenario, Comitán, El Sargento, Los Barriles.</p>
     </div>
 
     <span class="section-title" id="t-info">Datos del Cliente</span>
@@ -224,6 +230,7 @@
         });
         const msg = encodeURIComponent(`*BAJA PRO SERVICES REQUEST*\n\n👤 *Cliente:* ${name}\n📞 *WhatsApp:* ${phone}\n\n🛠 *Servicios:* \n${items}\n💰 *TOTAL ESTIMADO:* $${total.toLocaleString()} MXN\n\n_Cotización generada desde Web Tool_`);
         window.open(`https://wa.me/${num}?text=${msg}`, '_blank');
+        alert(UI_TEXT[currentLang].alert);
     }
 
     setLang('es');
