@@ -3,274 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BAJA PRO SERVICES | Cotizador Inteligente</title>
+    <title>BAJA PRO SERVICES | Cotizador Premium</title>
     <style>
         :root {
-            --primary-blue: #1e40af;
+            --aqua-base: #14b8a6;
+            --aqua-dark: #0f766e;
+            --aqua-light: #f0fdfa;
             --dark-blue: #0f172a;
-            --accent-green: #16a34a;
-            --bg-light: #f8fafc;
+            --white: #ffffff;
             --transition: all 0.3s ease;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-light); color: #1e293b; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--aqua-light); color: var(--dark-blue); }
 
-        /* HERO DINÁMICO */
+        /* HERO ADAPTABLE */
         .hero {
             width: 100%;
-            height: 45vh;
-            min-height: 300px;
+            height: 40vh;
+            min-height: 250px;
             background: url('hero.png') no-repeat center center;
             background-size: cover;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
             position: relative;
+            border-bottom: 5px solid var(--aqua-base);
         }
 
-        /* Overlay sutil para mejorar legibilidad si es necesario */
-        .hero::after {
-            content: "";
+        .lang-switch {
             position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 50%;
-            background: linear-gradient(transparent, var(--bg-light));
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255,255,255,0.9);
+            padding: 5px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
+        .lang-switch button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 800;
+            transition: var(--transition);
+            font-size: 12px;
+        }
+
+        .lang-switch button.active { background: var(--aqua-base); color: white; }
+
+        /* CONTENEDOR PRINCIPAL */
         .container {
-            width: 94%;
+            width: 92%;
             max-width: 600px;
-            background: white;
+            background: var(--white);
             padding: 30px;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-            margin: -60px auto 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(20, 184, 166, 0.2);
+            margin: -50px auto 40px;
             position: relative;
             z-index: 10;
         }
+
+        .brand-header { text-align: center; margin-bottom: 25px; }
+        .brand-header h1 { color: var(--aqua-dark); letter-spacing: 1px; font-size: 24px; }
 
         .section-title {
             font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: var(--primary-blue);
+            color: var(--aqua-base);
             margin: 25px 0 15px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        .section-title::after { content: ""; height: 1px; background: #e2e8f0; flex: 1; }
+        .section-title::after { content: ""; height: 1px; background: #ccfbf1; flex: 1; }
 
         .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; color: #475569; }
+        label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; color: #334155; }
         input, select, textarea { 
             width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; 
-            font-size: 16px; transition: var(--transition); background: #fff;
+            font-size: 16px; transition: var(--transition);
         }
-        input:focus { border-color: var(--primary-blue); outline: none; box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.05); }
+        input:focus { border-color: var(--aqua-base); outline: none; box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1); }
 
-        /* LISTA DE SERVICIOS ADAPTABLE */
-        .services-scroll {
-            max-height: 400px;
+        /* LISTA DE SERVICIOS CON ICONOS */
+        .services-box {
+            max-height: 450px;
             overflow-y: auto;
-            border: 2px solid #f1f5f9;
-            border-radius: 16px;
-            padding: 8px;
-            background: #fdfdfd;
+            border: 2px solid var(--aqua-light);
+            border-radius: 15px;
+            padding: 5px;
+            background: #fafafa;
         }
 
         .service-row {
             display: grid;
-            grid-template-columns: 1fr 90px;
-            gap: 12px;
+            grid-template-columns: 1fr 85px;
+            gap: 10px;
             align-items: center;
             padding: 12px;
             border-bottom: 1px solid #f1f5f9;
         }
 
         .service-info { display: flex; align-items: center; gap: 12px; }
-        .service-info input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--accent-green); cursor: pointer; }
-        .service-details b { display: block; font-size: 14px; color: var(--dark-blue); }
-        .service-details span { font-size: 11px; color: var(--accent-green); font-weight: bold; }
+        .service-info input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--aqua-base); cursor: pointer; }
+        
+        .service-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--aqua-light);
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        .service-icon svg { width: 20px; height: 20px; fill: var(--aqua-base); }
 
-        .qty-input { text-align: center; font-weight: 700; border-color: #cbd5e1; color: var(--primary-blue); }
+        .service-details b { display: block; font-size: 13px; color: var(--dark-blue); line-height: 1.2; }
+        .service-details span { font-size: 10px; color: var(--aqua-dark); font-weight: 700; }
 
-        /* CAJA DE TOTAL STICKY */
+        .qty-input { text-align: center; font-weight: 700; border: 1px solid var(--aqua-base); color: var(--aqua-dark); border-radius: 8px; padding: 8px; }
+
+        /* PANEL DE TOTAL */
         .total-panel {
-            position: sticky;
-            bottom: 20px;
             background: var(--dark-blue);
             color: white;
             padding: 20px;
-            border-radius: 18px;
+            border-radius: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border-left: 6px solid var(--aqua-base);
         }
 
-        .price-tag { font-size: 28px; font-weight: 900; color: #4ade80; }
+        .price-tag { font-size: 30px; font-weight: 900; color: var(--aqua-base); }
 
-        /* BOTONES */
+        /* BOTONES DE ACCIÓN */
         .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
         .btn {
             padding: 16px; border: none; border-radius: 12px; font-weight: 800;
-            cursor: pointer; color: white; text-transform: uppercase; font-size: 12px;
+            cursor: pointer; color: white; text-transform: uppercase; font-size: 11px;
             transition: var(--transition);
         }
-        .btn-tech { background: #64748b; }
-        .btn-sales { background: var(--accent-green); }
+        .btn-tech { background: #475569; }
+        .btn-sales { background: var(--aqua-base); }
         .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-        /* MEDIA QUERIES PARA MÓVIL */
         @media (max-width: 480px) {
-            .hero { height: 35vh; }
-            .container { padding: 20px; margin-top: -40px; }
             .actions { grid-template-columns: 1fr; }
-            .price-tag { font-size: 22px; }
+            .price-tag { font-size: 24px; }
+            .service-icon { width: 28px; height: 28px; }
         }
     </style>
 </head>
 <body>
 
-<div class="hero"></div>
+<div class="hero">
+    <div class="lang-switch">
+        <button id="btn-es" class="active" onclick="setLang('es')">ES</button>
+        <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+</div>
 
 <div class="container">
-    <h2 style="text-align:center; color: var(--dark-blue); margin-bottom: 5px;">BAJA PRO SERVICES</h2>
-    <p style="text-align:center; font-size: 12px; color: #64748b; margin-bottom: 20px;">Cotiza tu proyecto en segundos</p>
-
-    <span class="section-title">1. Información de contacto</span>
-    <div class="form-group">
-        <label>Nombre del Cliente</label>
-        <input type="text" id="cust-name" placeholder="Ej. Juan Pérez" required>
-    </div>
-    <div class="form-group">
-        <label>WhatsApp</label>
-        <input type="tel" id="cust-phone" placeholder="612 000 0000" required>
-    </div>
-    <div class="form-group">
-        <label>Ciudad / Ubicación</label>
-        <select id="cust-loc">
-            <option>Cabo San Lucas</option>
-            <option>San José del Cabo</option>
-            <option>La Paz</option>
-            <option>Todos Santos</option>
-            <option>Los Barriles</option>
-        </select>
+    <div class="brand-header">
+        <h1>BAJA PRO SERVICES</h1>
     </div>
 
-    <span class="section-title">2. Servicios (Selecciona y suma)</span>
-    <div class="services-scroll" id="list"></div>
+    <span class="section-title" id="t-info">Datos del Cliente</span>
+    <div class="form-group">
+        <label id="l-name">Nombre Completo</label>
+        <input type="text" id="cust-name" placeholder="...">
+    </div>
+    <div class="form-group">
+        <label id="l-phone">WhatsApp</label>
+        <input type="tel" id="cust-phone" placeholder="612...">
+    </div>
+
+    <span class="section-title" id="t-serv">Servicios</span>
+    <div class="services-box" id="services-list"></div>
 
     <div class="total-panel">
         <div>
-            <p style="font-size: 10px; opacity: 0.8; text-transform: uppercase;">Total Estimado</p>
+            <p id="t-total-lbl" style="font-size: 10px; opacity: 0.8; text-transform: uppercase;">Total Estimado</p>
             <div class="price-tag" id="total-val">$0.00</div>
         </div>
-        <div style="text-align:right; font-size: 10px; line-height: 1.2;">
-            Precios Netos<br>Sin IVA
+        <div style="text-align:right; font-size: 9px; opacity: 0.7;" id="t-tax">
+            Sin IVA incluido<br>Precios sujetos a visita
         </div>
     </div>
 
     <div class="actions">
-        <button class="btn btn-tech" onclick="sendMsg('526121673200')">🔧 Soporte / Mant.</button>
-        <button class="btn btn-sales" onclick="sendMsg('52612198325')">💰 Nueva Venta</button>
+        <button class="btn btn-tech" onclick="send('526121673200')">🔧 <span id="b-tech">Soporte Técnico</span></button>
+        <button class="btn btn-sales" onclick="send('52612198325')">💰 <span id="b-sales">Ventas</span></button>
     </div>
-
-    <p style="font-size: 10px; color: #94a3b8; text-align: center; margin-top: 20px; line-height: 1.4;">
-        *Los precios mostrados son preliminares. <br>
-        Servicios por volumen o de alta complejidad requieren visita técnica obligatoria.
-    </p>
 </div>
 
 <script>
-    const DATA = [
-        { id: "01", n: "Mantenimiento AC", p: 600, u: "equipo" },
-        { id: "02", n: "Instalación AC", p: 1600, u: "equipo" },
-        { id: "03", n: "Pintura (Mano obra)", p: 45, u: "m²" },
-        { id: "04", n: "Impermeabilización", p: 150, u: "m²" },
-        { id: "05", n: "Instalación de Pisos", p: 110, u: "m²" },
-        { id: "06", n: "Reparación Eléctrica", p: 350, u: "salida" },
-        { id: "07", n: "Instalación Eléctrica", p: 650, u: "salida" },
-        { id: "08", n: "Plomería General", p: 600, u: "servicio" },
-        { id: "09", n: "Cámaras CCTV", p: 800, u: "cámara" },
-        { id: "10", n: "Cerco Eléctrico", p: 899, u: "metro" },
-        { id: "11", n: "Aluminio / Ventanas", p: 1200, u: "m²" },
-        { id: "12", n: "Herrería / Rejas", p: 800, u: "m²" },
-        { id: "13", n: "Drywall / Tablaroca", p: 280, u: "m²" },
-        { id: "14", n: "Carpintería", p: 7000, u: "unidad" },
-        { id: "15", n: "Inst. Persianas", p: 350, u: "pza" },
-        { id: "16", n: "Detección de Fugas", p: 2500, u: "evento" },
-        { id: "17", n: "Instalación Boiler", p: 800, u: "pza" },
-        { id: "18", n: "Mant. General", p: 800, u: "jornada" },
-        { id: "19", n: "Paneles Solares", p: 45000, u: "kit" },
-        { id: "20", n: "Limpieza Profunda", p: 30, u: "m²" },
-        { id: "21", n: "Película Seguridad", p: 650, u: "m²" }
+    let currentLang = 'es';
+    
+    // Diccionario de Iconos SVG
+    const ICONS = {
+        ac: '<svg viewBox="0 0 24 24"><path d="M12,2L14.73,7.55L20.84,8.44L16.42,12.75L17.46,18.83L12,15.96L6.54,18.83L7.58,12.75L3.16,8.44L9.27,7.55L12,2M12,5.13L10.5,8.19L7.14,8.68L9.57,11.04L9,14.39L12,12.81L15,14.39L14.43,11.04L16.86,8.68L13.5,8.19L12,5.13Z""")/>></svg>',
+        paint: '<svg viewBox="0 0 24 24"><path d="M19,20V22H5V20H19M16,2H14V4H10V2H8V4H7A2,2 0 0,0 5,6V18H19V6A2,2 0 0,0 17,4H16V2M17,16H7V6H17V16Z""")/>></svg>',
+        water: '<svg viewBox="0 0 24 24"><path d="M12,20A6,6 0 0,1 6,14C6,10 12,3.25 12,3.25C12,3.25 18,10 18,14A6,6 0 0,1 12,20Z""")/>></svg>',
+        floor: '<svg viewBox="0 0 24 24"><path d="M20,2H4C2.89,2 2,2.89 2,4V20C2,21.11 2.89,22 4,22H20C21.11,22 22,21.11 22,20V4C22,2.89 21.11,2 20,2M20,10H14V4H20V10M12,4V10H4V4H12M4,12H10V20H4V12M12,20V12H20V20H12Z""")/>></svg>',
+        elec: '<svg viewBox="0 0 24 24"><path d="M7,2V13H10V22L17,10H13L17,2H7Z""")/>></svg>',
+        plumb: '<svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z""")/>></svg>',
+        cam: '<svg viewBox="0 0 24 24"><path d="M17,10.5V7A1,1 0 0,0 16,6H4A1,1 0 0,0 3,7V17A1,1 0 0,0 4,18H16A1,1 0 0,0 17,17V13.5L21,17.5V6.5L17,10.5Z""")/>></svg>',
+        fence: '<svg viewBox="0 0 24 24"><path d="M3,4V20H5V11H19V20H21V4H19V9H5V4H3Z""")/>></svg>',
+        alu: '<svg viewBox="0 0 24 24"><path d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5Z""")/>></svg>',
+        wood: '<svg viewBox="0 0 24 24"><path d="M12,3L2,12H5V20H19V12H22L12,3M12,7.7C13.5,7.7 14.8,9 14.8,10.5C14.8,11.7 14,12.7 12.9,13.1V15.5H11.1V13.1C10,12.7 9.2,11.7 9.2,10.5C9.2,9 10.5,7.7 12,7.7Z""")/>></svg>',
+        solar: '<svg viewBox="0 0 24 24"><path d="M12,7L10.3,8.7L11.6,10H8V12H11.6L10.3,13.3L12,15L16,11L12,7M2,12A10,10 0 1,1 12,22A10,10 0 0,1 2,12M4,12A8,8 0 1,0 12,4A8,8 0 0,0 4,12Z""")/>></svg>',
+        clean: '<svg viewBox="0 0 24 24"><path d="M19.36,2.72L20.78,4.14L15.06,9.85C16.13,11.39 16.28,13.24 15.38,14.44L9.06,8.12C10.26,7.22 12.11,7.37 13.65,8.44L19.36,2.72M5.93,17.57C3.92,15.56 2.69,13.16 2.35,10.92L7.34,12.1L12.1,7.34L10.92,2.35C13.16,2.69 15.56,3.92 17.57,5.93L5.93,17.57Z""")/>></svg>'
+    };
+
+    const SERVICES = [
+        { id: "01", icon: ICONS.ac, es: "Mantenimiento Aire AC", en: "AC Maintenance", p: 600, u: {es: "equipo", en: "unit"} },
+        { id: "02", icon: ICONS.ac, es: "Instalación Aire AC", en: "AC Installation", p: 1600, u: {es: "equipo", en: "unit"} },
+        { id: "03", icon: ICONS.paint, es: "Pintura Int/Ext", en: "Int/Ext Painting", p: 45, u: {es: "m²", en: "sqft"} },
+        { id: "04", icon: ICONS.water, es: "Impermeabilización", en: "Waterproofing", p: 150, u: {es: "m²", en: "sqft"} },
+        { id: "05", icon: ICONS.floor, es: "Instalación de Pisos", en: "Floor Installation", p: 110, u: {es: "m²", en: "sqft"} },
+        { id: "06", icon: ICONS.elec, es: "Reparación Eléctrica", en: "Electrical Repair", p: 350, u: {es: "salida", en: "outlet"} },
+        { id: "07", icon: ICONS.elec, es: "Instalación Eléctrica", en: "New Electrical Inst.", p: 650, u: {es: "salida", en: "outlet"} },
+        { id: "08", icon: ICONS.plumb, es: "Servicios Plomería", en: "Plumbing Services", p: 600, u: {es: "servicio", en: "service"} },
+        { id: "09", icon: ICONS.cam, es: "Sistemas Cámaras CCTV", en: "CCTV Systems", p: 800, u: {es: "cámara", en: "camera"} },
+        { id: "10", icon: ICONS.fence, es: "Cerco Eléctrico", en: "Electric Fence", p: 899, u: {es: "metro", en: "meter"} },
+        { id: "11", icon: ICONS.alu, es: "Trabajos Aluminio", en: "Aluminum Works", p: 1200, u: {es: "m²", en: "sqft"} },
+        { id: "12", icon: ICONS.alu, es: "Herrería Metálica", en: "Ironwork / Guards", p: 800, u: {es: "m²", en: "sqft"} },
+        { id: "13", icon: ICONS.alu, es: "Drywall / Tablaroca", en: "Drywall / Sheetrock", p: 280, u: {es: "m²", en: "sqft"} },
+        { id: "14", icon: ICONS.wood, es: "Carpintería", en: "Carpentry Services", p: 7000, u: {es: "unidad", en: "unit"} },
+        { id: "15", icon: ICONS.wood, es: "Persianas / Cortinas", en: "Blinds / Curtains", p: 350, u: {es: "pieza", en: "piece"} },
+        { id: "16", icon: ICONS.plumb, es: "Detección de Fugas", en: "Leak Detection", p: 2500, u: {es: "evento", en: "event"} },
+        { id: "17", icon: ICONS.plumb, es: "Instalación Boiler", en: "Water Heater Inst.", p: 800, u: {es: "pza", en: "pc"} },
+        { id: "18", icon: ICONS.clean, es: "Mantenimiento Gral.", en: "General Maintenance", p: 800, u: {es: "día", en: "day"} },
+        { id: "19", icon: ICONS.solar, es: "Paneles Solares", en: "Solar Panels", p: 45000, u: {es: "kit", en: "kit"} },
+        { id: "20", icon: ICONS.clean, es: "Limpieza Profesional", en: "Professional Cleaning", p: 30, u: {es: "m²", en: "sqft"} },
+        { id: "21", icon: ICONS.solar, es: "Película Seguridad", en: "Security Film", p: 650, u: {es: "m²", en: "sqft"} }
     ];
 
-    function build() {
-        const box = document.getElementById('list');
-        DATA.forEach(s => {
+    const UI_TEXT = {
+        es: {
+            info: "Datos del Cliente", name: "Nombre Completo", phone: "WhatsApp",
+            serv: "Servicios Disponibles", total: "Total Estimado", tax: "Sin IVA incluido<br>Precios sujetos a visita",
+            btech: "Soporte Técnico", bsales: "Ventas", alert: "Gracias, en unos minutos le enviaremos su cotización sin costo",
+            error: "Por favor llena tus datos y selecciona un servicio"
+        },
+        en: {
+            info: "Customer Information", name: "Full Name", phone: "WhatsApp Number",
+            serv: "Available Services", total: "Estimated Total", tax: "VAT not included<br>Prices subject to site visit",
+            btech: "Tech Support", bsales: "Sales / New Project", alert: "Thank you, we will send your free quote in a few minutes",
+            error: "Please fill your info and select at least one service"
+        }
+    };
+
+    function setLang(lang) {
+        currentLang = lang;
+        document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+        document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        
+        document.getElementById('t-info').innerText = UI_TEXT[lang].info;
+        document.getElementById('l-name').innerText = UI_TEXT[lang].name;
+        document.getElementById('l-phone').innerText = UI_TEXT[lang].phone;
+        document.getElementById('t-serv').innerText = UI_TEXT[lang].serv;
+        document.getElementById('t-total-lbl').innerText = UI_TEXT[lang].total;
+        document.getElementById('t-tax').innerHTML = UI_TEXT[lang].tax;
+        document.getElementById('b-tech').innerText = UI_TEXT[lang].btech;
+        document.getElementById('b-sales').innerText = UI_TEXT[lang].bsales;
+
+        renderServices();
+        calc();
+    }
+
+    function renderServices() {
+        const list = document.getElementById('services-list');
+        list.innerHTML = '';
+        SERVICES.forEach(s => {
             const div = document.createElement('div');
             div.className = 'service-row';
             div.innerHTML = `
                 <div class="service-info">
-                    <input type="checkbox" id="c-${s.id}" onchange="update()">
+                    <input type="checkbox" id="chk-${s.id}" onchange="calc()">
+                    <div class="service-icon">${s.icon}</div>
                     <div class="service-details">
-                        <b>${s.n}</b>
-                        <span>$${s.p.toLocaleString()} / ${s.u}</span>
+                        <b>${s[currentLang]}</b>
+                        <span>$${s.p.toLocaleString()} / ${s.u[currentLang]}</span>
                     </div>
                 </div>
-                <input type="number" id="q-${s.id}" class="qty-input" value="1" min="1" oninput="update()">
+                <input type="number" id="qty-${s.id}" class="qty-input" value="1" min="1" oninput="calc()">
             `;
-            box.appendChild(div);
+            list.appendChild(div);
         });
     }
 
-    function update() {
+    function calc() {
         let total = 0;
-        DATA.forEach(s => {
-            if(document.getElementById(`c-${s.id}`).checked) {
-                total += (s.p * document.getElementById(`q-${s.id}`).value);
+        SERVICES.forEach(s => {
+            if(document.getElementById(`chk-${s.id}`).checked) {
+                total += (s.p * document.getElementById(`qty-${s.id}`).value);
             }
         });
         document.getElementById('total-val').innerText = `$${total.toLocaleString()}.00`;
         return total;
     }
 
-    function sendMsg(num) {
+    function send(num) {
         const name = document.getElementById('cust-name').value;
-        const loc = document.getElementById('cust-loc').value;
-        if(!name) return alert("Escribe tu nombre");
+        const phone = document.getElementById('cust-phone').value;
+        const total = calc();
+
+        if(!name || total === 0) return alert(UI_TEXT[currentLang].error);
 
         let items = "";
-        DATA.forEach(s => {
-            if(document.getElementById(`c-${s.id}`).checked) {
-                const q = document.getElementById(`q-${s.id}`).value;
-                items += `• ${s.n}: ${q} ${s.u} ($${(s.p * q).toLocaleString()})\n`;
+        SERVICES.forEach(s => {
+            if(document.getElementById(`chk-${s.id}`).checked) {
+                const q = document.getElementById(`qty-${s.id}`).value;
+                items += `• ${s[currentLang]}: ${q} ${s.u[currentLang]} ($${(s.p * q).toLocaleString()})\n`;
             }
         });
 
-        if(!items) return alert("Selecciona un servicio");
-
-        const finalMsg = encodeURIComponent(
-            `*BAJA PRO SERVICES - SOLICITUD*\n\n` +
-            `👤 *Cliente:* ${name}\n` +
-            `📍 *Lugar:* ${loc}\n\n` +
-            `🛠 *Pedido:* \n${items}\n` +
-            `💰 *TOTAL ESTIMADO:* $${update().toLocaleString()} MXN\n\n` +
-            `_Enviado desde el cotizador web_`
+        const msg = encodeURIComponent(
+            `*BAJA PRO SERVICES REQUEST*\n\n` +
+            `👤 *Client:* ${name}\n` +
+            `📞 *WhatsApp:* ${phone}\n\n` +
+            `🛠 *Services:* \n${items}\n` +
+            `💰 *ESTIMATED TOTAL:* $${total.toLocaleString()} MXN\n\n` +
+            `_Sent from Web Tool_`
         );
 
-        window.open(`https://wa.me{num}?text=${finalMsg}`, '_blank');
-        alert("Gracias, en unos minutos le enviaremos su cotización sin costo");
+        window.open(`https://wa.me{num}?text=${msg}`, '_blank');
+        alert(UI_TEXT[currentLang].alert);
     }
 
-    build();
+    setLang('es');
 </script>
 
 </body>
