@@ -66,13 +66,12 @@
 
         .total-panel { background: var(--dark-blue); color: white; padding: 20px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; margin-top: 25px; border-left: 6px solid var(--aqua-base); }
         .price-tag { font-size: 30px; font-weight: 900; color: var(--aqua-base); }
-        .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
-        .btn { padding: 16px; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; color: white; text-transform: uppercase; font-size: 11px; transition: var(--transition); }
-        .btn-tech { background: #475569; }
+        .actions { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 15px; }
+        .btn { padding: 16px; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; color: white; text-transform: uppercase; font-size: 11px; transition: var(--transition); width: 100%; }
         .btn-sales { background: var(--aqua-base); }
         .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-        @media (max-width: 480px) { .actions { grid-template-columns: 1fr; } .price-tag { font-size: 24px; } }
+        @media (max-width: 480px) { .price-tag { font-size: 24px; } }
     </style>
 </head>
 <body>
@@ -139,32 +138,32 @@
     };
 
     const SERVICES = [
-        { id: "01", icon: ICONS.ac, es: "Mantenimiento Aire AC", en: "AC Maintenance", p: 800, u: {es: "equipo", en: "unit"} },
-        { id: "02", icon: ICONS.ac, es: "Instalación Aire AC", en: "AC Installation", p: 1900, u: {es: "equipo", en: "unit"} },
-        { id: "03", icon: ICONS.paint, es: "Pintura Int/Ext", en: "Int/Ext Painting", p: 55, u: {es: "m²", en: "sqft"} },
-        { id: "04", icon: ICONS.water, es: "Impermeabilización", en: "Waterproofing", p: 180, u: {es: "m²", en: "sqft"} },
-        { id: "05", icon: ICONS.floor, es: "Instalación de Pisos", en: "Floor Installation", p: 130, u: {es: "m²", en: "sqft"} },
-        { id: "06", icon: ICONS.elec, es: "Reparación Eléctrica", en: "Electrical Repair", p: 450, u: {es: "salida", en: "outlet"} },
-        { id: "07", icon: ICONS.elec, es: "Instalación Eléctrica", en: "New Electrical Inst.", p: 750, u: {es: "salida", en: "outlet"} },
-        { id: "08", icon: ICONS.plumb, es: "Servicios Plomería", en: "Plumbing Services", p: 700, u: {es: "servicio", en: "service"} },
-        { id: "09", icon: ICONS.cam, es: "Sistemas Cámaras CCTV", en: "CCTV Systems", p: 900, u: {es: "cámara", en: "camera"} },
-        { id: "10", icon: ICONS.fence, es: "Cerco Eléctrico", en: "Electric Fence", p: 1199, u: {es: "metro", en: "meter"} },
-        { id: "11", icon: ICONS.alu, es: "Trabajos Aluminio", en: "Aluminum Works", p: 1400, u: {es: "m²", en: "sqft"} },
-        { id: "12", icon: ICONS.alu, es: "Herrería Metálica", en: "Ironwork / Guards", p: 1200, u: {es: "m²", en: "sqft"} },
-        { id: "13", icon: ICONS.alu, es: "Drywall / Tablaroca", en: "Drywall / Sheetrock", p: 350, u: {es: "m²", en: "sqft"} },
-        { id: "14", icon: ICONS.wood, es: "Carpintería", en: "Carpentry Services", p: 9000, u: {es: "unidad", en: "unit"} },
-        { id: "15", icon: ICONS.wood, es: "Persianas / Cortinas", en: "Blinds / Curtains", p: 450, u: {es: "pieza", en: "piece"} },
-        { id: "16", icon: ICONS.plumb, es: "Detección de Fugas", en: "Leak Detection", p: 3500, u: {es: "evento", en: "event"} },
-        { id: "17", icon: ICONS.plumb, es: "Instalación Boiler", en: "Water Heater Inst.", p: 1200, u: {es: "pza", en: "pc"} },
-        { id: "18", icon: ICONS.clean, es: "Mantenimiento Gral.", en: "General Maintenance", p: 1200, u: {es: "día", en: "day"} },
-        { id: "19", icon: ICONS.solar, es: "Paneles Solares", en: "Solar Panels", p: 55000, u: {es: "kit", en: "kit"} },
-        { id: "20", icon: ICONS.clean, es: "Limpieza Profesional", en: "Professional Cleaning", p: 60, u: {es: "m²", en: "sqft"} },
-        { id: "21", icon: ICONS.solar, es: "Película Seguridad", en: "Security Film", p: 950, u: {es: "m²", en: "sqft"} }
+        { id: "01", icon: ICONS.ac, es: "Mantenimiento Aire AC", en: "AC Maintenance", p: 800, u: {es: "equipo", en: "unit"} },
+        { id: "02", icon: ICONS.ac, es: "Instalación Aire AC", en: "AC Installation", p: 1900, u: {es: "equipo", en: "unit"} },
+        { id: "03", icon: ICONS.paint, es: "Pintura Int/Ext", en: "Int/Ext Painting", p: 55, u: {es: "m²", en: "sqft"} },
+        { id: "04", icon: ICONS.water, es: "Impermeabilización", en: "Waterproofing", p: 180, u: {es: "m²", en: "sqft"} },
+        { id: "05", icon: ICONS.floor, es: "Instalación de Pisos", en: "Floor Installation", p: 130, u: {es: "m²", en: "sqft"} },
+        { id: "06", icon: ICONS.elec, es: "Reparación Eléctrica", en: "Electrical Repair", p: 450, u: {es: "salida", en: "outlet"} },
+        { id: "07", icon: ICONS.elec, es: "Instalación Eléctrica", en: "New Electrical Inst.", p: 750, u: {es: "salida", en: "outlet"} },
+        { id: "08", icon: ICONS.plumb, es: "Servicios Plomería", en: "Plumbing Services", p: 700, u: {es: "servicio", en: "service"} },
+        { id: "09", icon: ICONS.cam, es: "Sistemas Cámaras CCTV", en: "CCTV Systems", p: 900, u: {es: "cámara", en: "camera"} },
+        { id: "10", icon: ICONS.fence, es: "Cerco Eléctrico", en: "Electric Fence", p: 1199, u: {es: "metro", en: "meter"} },
+        { id: "11", icon: ICONS.alu, es: "Trabajos Aluminio", en: "Aluminum Works", p: 1400, u: {es: "m²", en: "sqft"} },
+        { id: "12", icon: ICONS.alu, es: "Herrería Metálica", en: "Ironwork / Guards", p: 1200, u: {es: "m²", en: "sqft"} },
+        { id: "13", icon: ICONS.alu, es: "Drywall / Tablaroca", en: "Drywall / Sheetrock", p: 350, u: {es: "m²", en: "sqft"} },
+        { id: "14", icon: ICONS.wood, es: "Carpintería", en: "Carpentry Services", p: 9000, u: {es: "unidad", en: "unit"} },
+        { id: "15", icon: ICONS.wood, es: "Persianas / Cortinas", en: "Blinds / Curtains", p: 450, u: {es: "pieza", en: "piece"} },
+        { id: "16", icon: ICONS.plumb, es: "Detección de Fugas", en: "Leak Detection", p: 3500, u: {es: "evento", en: "event"} },
+        { id: "17", icon: ICONS.plumb, es: "Instalación Boiler", en: "Water Heater Inst.", p: 1200, u: {es: "pza", en: "pc"} },
+        { id: "18", icon: ICONS.clean, es: "Mantenimiento Gral.", en: "General Maintenance", p: 1200, u: {es: "día", en: "day"} },
+        { id: "19", icon: ICONS.solar, es: "Paneles Solares", en: "Solar Panels", p: 55000, u: {es: "kit", en: "kit"} },
+        { id: "20", icon: ICONS.clean, es: "Limpieza Profesional", en: "Professional Cleaning", p: 60, u: {es: "m²", en: "sqft"} },
+        { id: "21", icon: ICONS.solar, es: "Película Seguridad", en: "Security Film", p: 950, u: {es: "m²", en: "sqft"} }
     ];
 
     const UI_TEXT = {
-        es: { info: "Datos del Cliente", name: "Nombre Completo", phone: "WhatsApp", serv: "Servicios Disponibles", total: "Total Estimado", tax: "Sin IVA incluido<br>Precios sujetos a visita", btech: "Soporte Técnico", bsales: "Ventas", alert: "Gracias, en unos minutos le enviaremos su cotización sin costo", error: "Por favor llena tus datos y selecciona un servicio" },
-        en: { info: "Customer Information", name: "Full Name", phone: "WhatsApp Number", serv: "Available Services", total: "Estimated Total", tax: "VAT not included<br>Prices subject to site visit", btech: "Tech Support", bsales: "Sales / New Project", alert: "Thank you, we will send your free quote in a few minutes", error: "Please fill your info and select at least one service" }
+        es: { info: "Datos del Cliente", name: "Nombre Completo", phone: "WhatsApp", serv: "Servicios Disponibles", total: "Total Estimado", tax: "Sin IVA incluido<br>Precios sujetos a visita", btech: "Soporte Técnico", bsales: "Soporte y Ventas", alert: "Gracias, en unos minutos le enviaremos su cotización sin costo", error: "Por favor llena tus datos y selecciona un servicio" },
+        en: { info: "Customer Information", name: "Full Name", phone: "WhatsApp Number", serv: "Available Services", total: "Estimated Total", tax: "VAT not included<br>Prices subject to site visit", btech: "Tech Support", bsales: "Sales & Support", alert: "Thank you, we will send your free quote in a few minutes", error: "Please fill your info and select at least one service" }
     };
 
     function setLang(lang) {
@@ -177,8 +176,13 @@
         document.getElementById('t-serv').innerText = UI_TEXT[lang].serv;
         document.getElementById('t-total-lbl').innerText = UI_TEXT[lang].total;
         document.getElementById('t-tax').innerHTML = UI_TEXT[lang].tax;
-        document.getElementById('b-tech').innerText = UI_TEXT[lang].btech;
-        document.getElementById('b-sales').innerText = UI_TEXT[lang].bsales;
+        
+        const bTechEl = document.getElementById('b-tech');
+        if (bTechEl) bTechEl.innerText = UI_TEXT[lang].btech;
+        
+        const bSalesEl = document.getElementById('b-sales');
+        if (bSalesEl) bSalesEl.innerText = UI_TEXT[lang].bsales;
+        
         renderServices();
         calc();
     }
@@ -207,11 +211,14 @@
     function calc() {
         let total = 0;
         SERVICES.forEach(s => {
-            if(document.getElementById(`chk-${s.id}`) && document.getElementById(`chk-${s.id}`).checked) {
-                total += (s.p * document.getElementById(`qty-${s.id}`).value);
+            const chk = document.getElementById(`chk-${s.id}`);
+            const qty = document.getElementById(`qty-${s.id}`);
+            if(chk && chk.checked) {
+                const val = parseFloat(qty.value) || 0;
+                total += (s.p * val);
             }
         });
-        document.getElementById('total-val').innerText = `$${total.toLocaleString()}.00`;
+        document.getElementById('total-val').innerText = `$${total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
         return total;
     }
 
@@ -222,7 +229,8 @@
         if(!name || total === 0) return alert(UI_TEXT[currentLang].error);
         let items = "";
         SERVICES.forEach(s => {
-            if(document.getElementById(`chk-${s.id}`).checked) {
+            const chk = document.getElementById(`chk-${s.id}`);
+            if(chk && chk.checked) {
                 const q = document.getElementById(`qty-${s.id}`).value;
                 items += `• ${s[currentLang]}: ${q} ${s.u[currentLang]} ($${(s.p * q).toLocaleString()})\n`;
             }
