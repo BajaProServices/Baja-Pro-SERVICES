@@ -101,6 +101,10 @@
         <label id="l-phone">WhatsApp</label>
         <input type="tel" id="cust-phone" placeholder="6121234567">
     </div>
+    <div class="form-group">
+        <label id="l-address">Dirección / Pin de Google Maps</label>
+        <input type="text" id="cust-address" placeholder="Ej. Calle 123, Col. Centro o pegue enlace de Maps">
+    </div>
 
     <span class="section-title" id="t-serv">Servicios</span>
     <div class="services-box" id="services-list"></div>
@@ -162,8 +166,8 @@
     ];
 
     const UI_TEXT = {
-        es: { info: "Datos del Cliente", name: "Nombre Completo", phone: "WhatsApp", serv: "Servicios Disponibles", total: "Total Estimado (Sin IVA)", tax: "Sin IVA incluido<br>Precios sujetos a visita", bsales: "Enviar Cotización por WhatsApp", alert: "Gracias, en unos minutos le enviaremos su cotización sin costo", error: "Por favor llena tus datos de contacto y selecciona al menos un servicio" },
-        en: { info: "Customer Information", name: "Full Name", phone: "WhatsApp Number", serv: "Available Services", total: "Estimated Total (Excl. VAT)", tax: "VAT not included<br>Prices subject to site visit", bsales: "Send Quote via WhatsApp", alert: "Thank you, we will process your quote shortly", error: "Please fill your info and select at least one service" }
+        es: { info: "Datos del Cliente", name: "Nombre Completo", phone: "WhatsApp", address: "Dirección / Pin de Google Maps", serv: "Servicios Disponibles", total: "Total Estimado (Sin IVA)", tax: "Sin IVA incluido<br>Precios sujetos a visita", bsales: "Enviar Cotización por WhatsApp", alert: "Gracias, en unos minutos le enviaremos su cotización sin costo", error: "Por favor llena tus datos de contacto y selecciona al menos un servicio", addressPh: "Ej. Calle 123, Col. Centro o enlace de Maps" },
+        en: { info: "Customer Information", name: "Full Name", phone: "WhatsApp Number", address: "Address / Google Maps Location Pin", serv: "Available Services", total: "Estimated Total (Excl. VAT)", tax: "VAT not included<br>Prices subject to site visit", bsales: "Send Quote via WhatsApp", alert: "Thank you, we will process your quote shortly", error: "Please fill your info and select at least one service", addressPh: "e.g. 123 Main St or Google Maps link" }
     };
 
     function setLang(lang) {
@@ -173,6 +177,8 @@
         document.getElementById('t-info').innerText = UI_TEXT[lang].info;
         document.getElementById('l-name').innerText = UI_TEXT[lang].name;
         document.getElementById('l-phone').innerText = UI_TEXT[lang].phone;
+        document.getElementById('l-address').innerText = UI_TEXT[lang].address;
+        document.getElementById('cust-address').placeholder = UI_TEXT[lang].addressPh;
         document.getElementById('t-serv').innerText = UI_TEXT[lang].serv;
         document.getElementById('t-total-lbl').innerText = UI_TEXT[lang].total;
         document.getElementById('t-tax').innerHTML = UI_TEXT[lang].tax;
@@ -185,7 +191,6 @@
     function renderServices() {
         const list = document.getElementById('services-list');
         
-        // Guardar estado previo antes de refrescar vista
         const state = {};
         SERVICES.forEach(s => {
             const chk = document.getElementById(`chk-${s.id}`);
@@ -232,6 +237,7 @@
     function send(num) {
         const name = document.getElementById('cust-name').value.trim();
         const phone = document.getElementById('cust-phone').value.trim();
+        const address = document.getElementById('cust-address').value.trim();
         const total = calc();
 
         if(!name || total === 0) return alert(UI_TEXT[currentLang].error);
@@ -249,7 +255,8 @@
         const msg = encodeURIComponent(
             `*SOLICITUD DE COTIZACIÓN - BAJA PRO SERVICES*\n\n` +
             `👤 *Cliente:* ${name}\n` +
-            `📞 *WhatsApp Contacto:* ${phone || 'No proporcionado'}\n\n` +
+            `📞 *WhatsApp Contacto:* ${phone || 'No proporcionado'}\n` +
+            `📍 *Ubicación / Maps:* ${address || 'No proporcionado'}\n\n` +
             `🛠 *Servicios Seleccionados:*\n${items}\n` +
             `💰 *TOTAL ESTIMADO (Sin IVA):* $${total.toLocaleString('en-US', {minimumFractionDigits: 2})} MXN\n\n` +
             `_Generado automáticamente desde la Web Tool_`
